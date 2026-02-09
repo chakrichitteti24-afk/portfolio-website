@@ -31,7 +31,25 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="">
     
-    <link rel="stylesheet" href="style.min.css">
+    <!-- Preload Critical Resources -->
+    <link rel="preload" as="image" href="profile.jpg">
+    <link rel="preload" as="font" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600;700&display=swap" crossorigin>
+    
+    <!-- Inline Critical CSS -->
+    <style>
+    /* Critical CSS for Above-the-Fold Content */
+    *{margin:0;padding:0;box-sizing:border-box}:root{--primary-color:#6366f1;--secondary-color:#8b5cf6;--dark-color:#1e293b;--light-color:#f8fafc;--text-color:#334155;--white:#ffffff;--shadow:0 4px 6px rgba(0,0,0,0.1)}html{scroll-behavior:smooth}body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:var(--text-color);background-color:var(--white)}.container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* Navigation */.navbar{background-color:var(--white);box-shadow:var(--shadow);position:fixed;top:0;width:100%;z-index:1000;transition:all 0.3s ease}.navbar .container{display:flex;justify-content:space-between;align-items:center;padding:1rem 20px}.logo a{font-size:1.5rem;font-weight:bold;color:var(--primary-color);text-decoration:none}.nav-menu{display:flex;list-style:none;gap:2rem}.nav-menu a{color:var(--text-color);text-decoration:none;font-weight:500;transition:color 0.3s ease}.nav-menu a:hover{color:var(--primary-color)}.hamburger{display:none;flex-direction:column;cursor:pointer;gap:5px}.hamburger span{width:25px;height:3px;background-color:var(--dark-color);transition:all 0.3s ease}
+
+/* Hero Section - Critical for LCP */.hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,var(--light-color) 0%,#e2e8f0 100%);padding-top:80px}.hero-content{text-align:center;max-width:800px;margin:0 auto}.hero-profile-image{margin-bottom:2rem}.profile-photo{width:200px;height:200px;border-radius:50%;object-fit:cover;border:5px solid var(--white);box-shadow:0 10px 30px rgba(0,0,0,0.2);transition:transform 0.3s ease,box-shadow 0.3s ease}.profile-photo:hover{transform:scale(1.05);box-shadow:0 15px 40px rgba(99,102,241,0.4)}.hero-title{font-size:3.5rem;margin-bottom:1rem;color:var(--dark-color)}.hero-subtitle{font-size:1.5rem;color:var(--primary-color);margin-bottom:1rem;font-weight:600}.hero-description{font-size:1.1rem;margin-bottom:2rem;color:var(--text-color)}.hero-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}.highlight{color:var(--primary-color)}.btn{padding:12px 30px;border-radius:50px;text-decoration:none;font-weight:600;transition:all 0.3s ease;display:inline-block;border:2px solid transparent}.btn-primary{background-color:var(--primary-color);color:var(--white)}.btn-primary:hover{background-color:var(--secondary-color);transform:translateY(-2px)}.btn-secondary{background-color:transparent;color:var(--primary-color);border:2px solid var(--primary-color)}.btn-secondary:hover{background-color:var(--primary-color);color:var(--white);transform:translateY(-2px)}
+
+/* Mobile Responsive */@media screen and (max-width:768px){.hamburger{display:flex}.nav-menu{position:fixed;left:-100%;top:70px;flex-direction:column;background-color:var(--white);width:100%;text-align:center;transition:0.3s;box-shadow:var(--shadow);padding:2rem 0;gap:0}.nav-menu.active{left:0}.nav-menu li{margin:1rem 0}.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.hamburger.active span:nth-child(2){opacity:0}.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-6px)}.hero-title{font-size:2.5rem}.hero-subtitle{font-size:1.2rem}.hero-buttons{flex-direction:column;align-items:center}.btn{width:100%;max-width:300px}}@media screen and (max-width:480px){.hero-title{font-size:2rem}.profile-photo{width:160px;height:160px}.hero-subtitle{font-size:1.1rem}}
+    </style>
+    
+    <!-- Load Non-Critical CSS Async -->
+    <link rel="preload" href="style.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="style.min.css"></noscript>
 </head>
 <body>
     <!-- Navigation -->
@@ -61,7 +79,7 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-profile-image">
-                    <img src="profile.jpg" loading="lazy" width="200" height="200" alt="Chakri - Cybersecurity Student Profile Photo" class="profile-photo">
+                    <img src="profile.jpg" width="200" height="200" alt="Chakri - Cybersecurity Student Profile Photo" class="profile-photo">
                 </div>
                 <h1 class="hero-title">Hi, I'm <span class="highlight">Chakri</span></h1>
                 <p class="hero-subtitle">B.Tech CSE Student | 2nd Year</p>
@@ -327,7 +345,7 @@
                     e.preventDefault();
                     const target = document.querySelector(href);
                     if (target) {
-                        const offsetTop = target.offsetTop - 70; // Account for fixed navbar
+                        const offsetTop = target.offsetTop - 70;
                         window.scrollTo({
                             top: offsetTop,
                             behavior: 'smooth'
@@ -337,95 +355,17 @@
             });
         });
 
-        // Scroll animations using Intersection Observer
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 100); // Stagger animation
-                    observer.unobserve(entry.target);
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
                 }
             });
-        }, observerOptions);
-
-        // Observe elements for scroll animations
-        document.addEventListener('DOMContentLoaded', () => {
-            // Add animation classes to elements
-            const aboutImage = document.querySelector('.about-image');
-            const aboutText = document.querySelector('.about-text');
-            const skillCards = document.querySelectorAll('.skill-card');
-            const projectCards = document.querySelectorAll('.project-card');
-            const statItems = document.querySelectorAll('.stat-item');
-            const contactInfo = document.querySelector('.contact-info');
-            const contactForm = document.querySelector('.contact-form');
-
-            if (aboutImage) {
-                aboutImage.classList.add('slide-in-left');
-                observer.observe(aboutImage);
-            }
-
-            if (aboutText) {
-                aboutText.classList.add('slide-in-right');
-                observer.observe(aboutText);
-            }
-
-            skillCards.forEach((card, index) => {
-                card.classList.add('fade-in-up');
-                if (index < 3) card.classList.add(`stagger-${index + 1}`);
-                observer.observe(card);
-            });
-
-            projectCards.forEach((card, index) => {
-                card.classList.add('scale-in');
-                card.classList.add(`stagger-${Math.min(index + 1, 3)}`);
-                observer.observe(card);
-            });
-
-            statItems.forEach((item, index) => {
-                item.classList.add('fade-in-up');
-                item.classList.add(`stagger-${Math.min(index + 1, 3)}`);
-                observer.observe(item);
-            });
-
-            if (contactInfo) {
-                contactInfo.classList.add('slide-in-left');
-                observer.observe(contactInfo);
-            }
-
-            if (contactForm) {
-                contactForm.classList.add('slide-in-right');
-                observer.observe(contactForm);
-            }
-
-            // Navbar scroll effect
-            const navbar = document.querySelector('.navbar');
-            if (navbar) {
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 50) {
-                        navbar.classList.add('scrolled');
-                    } else {
-                        navbar.classList.remove('scrolled');
-                    }
-                });
-            }
-
-            // Form submission handler
-            const contactFormElement = document.querySelector('.contact-form');
-            if (contactFormElement) {
-                contactFormElement.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    // Add your form submission logic here
-                    alert('Thank you for your message! I will get back to you soon.');
-                    contactFormElement.reset();
-                });
-            }
-        });
+        }
     </script>
 </body>
 </html>
