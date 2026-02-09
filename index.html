@@ -3,9 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Chakri - B.Tech CSE Student | Python Developer | Web Development Enthusiast">
-    <title>Chakri - Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Chakri | Cybersecurity Enthusiast | Python Developer</title>
+    <meta name="description" content="Chakri is a Computer Science student passionate about cybersecurity, ethical hacking, Python development and security research.">
+    <meta name="keywords" content="Cybersecurity Student, Ethical Hacker, Python Developer, Security Researcher, SOC Analyst Portfolio">
+    <meta name="author" content="Chakri">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Chakri Portfolio">
+    <meta property="og:description" content="Cybersecurity Student and Python Developer">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="profile.jpg">
+    <meta property="og:image:alt" content="Chakri - Cybersecurity Student Profile Photo">
+    <meta property="og:site_name" content="Chakri Portfolio">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chakri Portfolio">
+    <meta name="twitter:description" content="Cybersecurity Student and Python Developer">
+    <meta name="twitter:image" content="profile.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="">
+    
+    <link rel="stylesheet" href="style.min.css">
 </head>
 <body>
     <!-- Navigation -->
@@ -35,7 +61,7 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-profile-image">
-                    <img src="profile.jpg" alt="Chakri" class="profile-photo">
+                    <img src="profile.jpg" loading="lazy" width="200" height="200" alt="Chakri - Cybersecurity Student Profile Photo" class="profile-photo">
                 </div>
                 <h1 class="hero-title">Hi, I'm <span class="highlight">Chakri</span></h1>
                 <p class="hero-subtitle">B.Tech CSE Student | 2nd Year</p>
@@ -54,10 +80,9 @@
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <div class="about-image">
-                    <img src="profile.jpg" alt="Chakri Profile Photo" class="about-profile-photo">
+                    <img src="profile.jpg" loading="lazy" width="220" height="220" alt="Chakri - Computer Science Student and Cybersecurity Enthusiast" class="about-profile-photo">
                 </div>
                 <div class="about-text">
-                    <h3 class="about-heading">About Me</h3>
                     <p class="about-role">B.Tech Computer Science & Engineering Student</p>
                     <p class="about-year">Currently in 2nd Year</p>
                     
@@ -274,7 +299,7 @@
         </div>
     </footer>
 
-    <script>
+    <script defer>
         // Mobile menu toggle
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.nav-menu');
