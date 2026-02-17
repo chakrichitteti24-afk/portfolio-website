@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://chakri-portfolio.com/sitemap.xml
+Sitemap: https://chakrichitteti.com/sitemap.xml
 
 # Block common non-content paths
 Disallow: /admin/
