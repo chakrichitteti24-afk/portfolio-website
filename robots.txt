@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://chakrichitteti.com/sitemap.xml
+Sitemap: https://chakrichitteti.pages.dev/sitemap.xml
 
 # Block common non-content paths
 Disallow: /admin/
